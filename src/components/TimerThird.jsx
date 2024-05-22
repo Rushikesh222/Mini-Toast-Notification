@@ -1,31 +1,26 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useTimer } from "../context/ContextTimer";
 
 export const TimerThird = () => {
-  const [apiData, setApiData] = useState([]);
-  const [displayData, setDisplayData] = useState(true);
-  const [currentNumber, setCurrentNumber] = useState(1);
-  const [displayedItems, setDisplayedItems] = useState([]);
+  const {
+    displayedItems,
+    setDisplayedItems,
+    currentNumber,
+    setCurrentNumber,
+    getData,
+    apiData,
+  } = useTimer();
 
+  const [displayData, setDisplayData] = useState(true);
   let [time, setTime] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const API = "https://api.knowmee.co/api/v1/master/get-country-list";
-
   const intervalRef = useRef(null);
+  const itemsPerPage = 5;
 
-  const getData = async () => {
-    try {
-      const { data, status } = await axios(API);
-      if (status === 200) {
-        setApiData(data.responseData);
-      } else {
-        console.log("somethig wents wrong");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = apiData.slice(startIndex, startIndex + itemsPerPage);
+
   const getFromData = (e) => {
     e.preventDefault();
 
@@ -37,8 +32,6 @@ export const TimerThird = () => {
     });
 
     setTimeout(() => {
-      console.log("hello");
-      console.log(displayedItems);
       setDisplayedItems((prevDisplayedItems) => {
         const newDisplayedItems = prevDisplayedItems.slice(0, -1);
         return newDisplayedItems;
@@ -63,12 +56,7 @@ export const TimerThird = () => {
         return prevTime - 1;
       });
     }, 1000);
-
-    // setTime("");
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = apiData.slice(startIndex, startIndex + itemsPerPage);
 
   const handleNext = () => {
     if (currentPage < Math.ceil(apiData.length / itemsPerPage)) {
@@ -82,14 +70,6 @@ export const TimerThird = () => {
     }
   };
 
-  const removeItem = (index) => {
-    console.log(index);
-    console.log("hello");
-    setDisplayedItems((prevDisplayedItems) =>
-      prevDisplayedItems.filter((_, i) => i !== index)
-    );
-  };
-  console.log(time);
   return (
     <div className="Api-container">
       {displayData ? (

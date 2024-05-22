@@ -1,11 +1,21 @@
 import React, { useState } from "react";
+import { useTimer } from "../context/ContextTimer";
 
 export const TimerTwo = () => {
   const [time, setTime] = useState(7);
-  const [modal, setModal] = useState();
-  const [currentNumber, setCurrentNumber] = useState(1);
-  const [displayedItems, setDisplayedItems] = useState([]);
-  const [message, setMessage] = useState("");
+  const {
+    modal,
+    setModal,
+    currentNumber,
+    setCurrentNumber,
+    displayedItems,
+    setDisplayedItems,
+    message,
+    setMessage,
+    handleMessage,
+    handleNotice,
+    removeItem,
+  } = useTimer();
 
   const toggleModal = () => {
     setModal(!modal);
@@ -17,13 +27,6 @@ export const TimerTwo = () => {
     document.body.classList.remove("active-modal");
   }
 
-  const handleNotice = (e) => {
-    e.preventDefault();
-    setModal(false);
-  };
-  const handleMessage = (e) => {
-    setMessage(e.target.value);
-  };
   const addTestMessage = (e) => {
     e.preventDefault();
     const newMessage = {
@@ -36,21 +39,14 @@ export const TimerTwo = () => {
       const newDisplayedItems = [newMessage, ...prevDisplayedMessage];
       return newDisplayedItems.slice(0, 3);
     });
-    setMessage("");
 
     setTimeout(() => {
-      //   console.log("hello");
-      console.log(displayedItems);
       setDisplayedItems((prevDisplayedItems) => {
         const newDisplayedItems = prevDisplayedItems.slice(0, -1);
         return newDisplayedItems;
       });
     }, time * 1000);
-  };
-  const removeItem = (index) => {
-    setDisplayedItems((prevDisplayedItems) =>
-      prevDisplayedItems.filter((_, i) => i !== index)
-    );
+    setMessage("");
   };
 
   return (

@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useTimer } from "../context/ContextTimer";
 
 export const TimerOne = () => {
   const [time, setTime] = useState(7);
-  const [modal, setModal] = useState();
-  const [currentNumber, setCurrentNumber] = useState(1);
-  const [displayedItems, setDisplayedItems] = useState([]);
+  const {
+    setModal,
+    modal,
+    currentNumber,
+    setCurrentNumber,
+    setDisplayedItems,
+    displayedItems,
+    removeItem,
+    handleNotice,
+  } = useTimer();
 
   const toggleModal = () => {
     setModal(!modal);
@@ -16,10 +24,6 @@ export const TimerOne = () => {
     document.body.classList.remove("active-modal");
   }
 
-  const handleNotice = (e) => {
-    e.preventDefault();
-    setModal(false);
-  };
   const addTestMessage = () => {
     const newMessage = `Testing:  ${currentNumber}`;
     setCurrentNumber(currentNumber + 1);
@@ -29,25 +33,16 @@ export const TimerOne = () => {
     });
 
     setTimeout(() => {
-      console.log("hello");
-      console.log(displayedItems);
       setDisplayedItems((prevDisplayedItems) => {
         const newDisplayedItems = prevDisplayedItems.slice(0, -1);
         return newDisplayedItems;
       });
     }, time * 1000);
   };
-  const removeItem = (index) => {
-    console.log(index);
-    console.log("hello");
-    setDisplayedItems((prevDisplayedItems) =>
-      prevDisplayedItems.filter((_, i) => i !== index)
-    );
-  };
+
   return (
     <div className="input-container">
       <button className="btn-message" onClick={addTestMessage}>
-        {" "}
         Show Toast message
       </button>
       <button className="btn-setting" onClick={() => setModal(true)}>
