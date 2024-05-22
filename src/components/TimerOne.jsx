@@ -18,7 +18,7 @@ export const TimerOne = () => {
 
   const handleNotice = (e) => {
     e.preventDefault();
-    console.log(time);
+    setModal(false);
   };
   const addTestMessage = () => {
     const newMessage = `Testing:  ${currentNumber}`;

@@ -19,7 +19,7 @@ export const TimerTwo = () => {
 
   const handleNotice = (e) => {
     e.preventDefault();
-    console.log(time);
+    setModal(false);
   };
   const handleMessage = (e) => {
     setMessage(e.target.value);

@@ -1,14 +1,18 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 export const TimerThird = () => {
   const [apiData, setApiData] = useState([]);
   const [displayData, setDisplayData] = useState(true);
+  const [currentNumber, setCurrentNumber] = useState(1);
+  const [displayedItems, setDisplayedItems] = useState([]);
 
-  const [time, setTime] = useState(0);
+  let [time, setTime] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const API = "https://api.knowmee.co/api/v1/master/get-country-list";
+
+  const intervalRef = useRef(null);
 
   const getData = async () => {
     try {
@@ -24,11 +28,43 @@ export const TimerThird = () => {
   };
   const getFromData = (e) => {
     e.preventDefault();
-    setDisplayData(false);
+
+    const newMessage = `${currentNumber}`;
+    setCurrentNumber(currentNumber + 1);
+    setDisplayedItems((prevDisplayedMessage) => {
+      const newDisplayedItems = [newMessage, ...prevDisplayedMessage];
+      return newDisplayedItems.slice(0, 3);
+    });
+
+    setTimeout(() => {
+      console.log("hello");
+      console.log(displayedItems);
+      setDisplayedItems((prevDisplayedItems) => {
+        const newDisplayedItems = prevDisplayedItems.slice(0, -1);
+        return newDisplayedItems;
+      });
+    }, time * 1000);
+
     setTimeout(() => {
       getData();
+      setDisplayData(false);
     }, time * 1000);
-    setTime("");
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
+      setTime((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(intervalRef.current);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    // setTime("");
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -46,6 +82,14 @@ export const TimerThird = () => {
     }
   };
 
+  const removeItem = (index) => {
+    console.log(index);
+    console.log("hello");
+    setDisplayedItems((prevDisplayedItems) =>
+      prevDisplayedItems.filter((_, i) => i !== index)
+    );
+  };
+  console.log(time);
   return (
     <div className="Api-container">
       {displayData ? (
@@ -102,6 +146,16 @@ export const TimerThird = () => {
           )}
         </div>
       )}
+      <div className="notification-container">
+        {displayedItems?.map((item, index) => (
+          <div className="notification-content-timer" key={index}>
+            <p>
+              {time}| {item}
+            </p>
+            <i class="fa-solid fa-xmark" onClick={() => removeItem(index)}></i>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
