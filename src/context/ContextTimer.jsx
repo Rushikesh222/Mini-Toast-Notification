@@ -1,5 +1,5 @@
+import axios from "axios";
 import { createContext, useContext, useState } from "react";
-
 const TimerContext = createContext();
 export const TimeProvider = ({ children }) => {
   const [modal, setModal] = useState();
