@@ -64,6 +64,61 @@ a.active {
   margin-top: 100px;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  margin: 20px;
+}
+.counter-container form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 10px;
+}
+.counter-container form label {
+  margin: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.counter-container form input {
+  margin: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 300px;
+}
+.btn-message {
+  width: 300px;
+}
+.btn-message,
+.btn-setting {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin: 5px;
+  border: 2px solid white;
+}
+.btn-message:hover,
+.btn-setting:hover {
+  border-color: #646cff;
+}
+.btn-message:focus,
+.btn-setting:focus,
+.btn-message:focus-visible,
+.btn-setting:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
 body.active-modal {
   overflow-y: hidden;
 }
@@ -192,6 +247,37 @@ body.active-modal {
 .Api-container {
   position: absolute;
   top: 80px;
+  width: 100%;
+}
+.Api-content {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+}
+.Data-Content {
+  /* border: 2px solid white; */
+  position: relative;
+  top: 65px;
+  font-size: 20px;
+}
+.show-data-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.country-content p {
+  padding: 10px;
+}
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  flex-direction: row;
+  right: 6px;
+}
+.btn-container button {
+  width: 120px;
 }
 footer {
   margin: auto;

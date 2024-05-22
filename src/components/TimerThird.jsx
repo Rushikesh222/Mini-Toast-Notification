@@ -57,22 +57,29 @@ export const TimerThird = () => {
               placeholder="Enter Number Here"
               onChange={(e) => setTime(e.target.value)}
             />
-            <button type="submit">Show Data</button>
+            <button className="btn-message" type="submit">
+              Start Timer
+            </button>
           </form>
         </div>
       ) : (
-        <div>
+        <div className="Api-content">
           {currentItems.length === 0 ? (
             <div>
-              <h1>data is fetching</h1>
+              <h1>Data is Fetching</h1>
             </div>
           ) : (
-            <div>
-              <div>
-                <button onClick={handlePrevious} disabled={currentPage === 1}>
+            <div className="show-data-container">
+              <div className="btn-container">
+                <button
+                  className="btn-message"
+                  onClick={handlePrevious}
+                  disabled={currentPage === 1}
+                >
                   Previous
                 </button>
                 <button
+                  className="btn-message"
                   onClick={handleNext}
                   disabled={
                     currentPage === Math.ceil(apiData.length / itemsPerPage)
@@ -81,14 +88,16 @@ export const TimerThird = () => {
                   Next
                 </button>
               </div>
-              {currentItems.map((items) => {
-                const { country_id, country_name } = items;
-                return (
-                  <div key={country_id}>
-                    <p>{country_name}</p>
-                  </div>
-                );
-              })}
+              <div className="Data-Content">
+                {currentItems.map((items) => {
+                  const { country_id, country_name } = items;
+                  return (
+                    <div className="country-content" key={country_id}>
+                      <p>{country_name}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>

@@ -46,8 +46,11 @@ export const TimerOne = () => {
   };
   return (
     <div className="input-container">
-      <button onClick={addTestMessage}> Show Toast message</button>
-      <button onClick={() => setModal(true)}>
+      <button className="btn-message" onClick={addTestMessage}>
+        {" "}
+        Show Toast message
+      </button>
+      <button className="btn-setting" onClick={() => setModal(true)}>
         <i class="fa-solid fa-gear"></i>
       </button>
       {modal && (
