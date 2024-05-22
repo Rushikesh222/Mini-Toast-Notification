@@ -261,6 +261,7 @@ body.active-modal {
   position: relative;
   top: 65px;
   font-size: 20px;
+  margin: 30px;
 }
 .show-data-container {
   width: 100%;
